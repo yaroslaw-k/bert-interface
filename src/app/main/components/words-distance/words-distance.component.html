@@ -1,0 +1,36 @@
+<mat-card-header>
+  <div mat-card-avatar class="avatar"><i class="fas fa-ruler"></i></div>
+  <mat-card-title>Words distance</mat-card-title>
+  <mat-card-subtitle> Method: /words-distance </mat-card-subtitle>
+  <mat-card-subtitle> Input: words e.g. &#123; "target" : "target-word", "words" : ["word1", "word2", ..., "wordn"] &#125;</mat-card-subtitle>
+  <mat-card-subtitle> Output: distance between words e.g. [  0.3,  0.7, ...,  0.1 ] </mat-card-subtitle>
+</mat-card-header>
+<mat-card-content>
+  <mat-form-field color="accent" class="word-chip-list">
+    <mat-chip-list #chipList aria-label="Word selection">
+      <mat-chip *ngFor="let word of words" [selectable]="true"
+                [removable]="true" (removed)="remove(word)">
+        {{word}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input  placeholder="Input words"
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="true"
+             (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-hint>first is target</mat-hint>
+  </mat-form-field>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-raised-button color="primary" [disabled]="words.length < 2" (click)="send()">Send</button>
+  <button mat-raised-button color="accent" [disabled]="words.length === 0" (click)="reset()">Reset</button>
+</mat-card-actions>
+<mat-card-content *ngIf="bertOutput && bertOutput.length">
+  <div class="mat-h4">Output:</div>
+  <div *ngFor="let dist of bertOutput; let i = index">
+    {{i}} - <b>{{dist}}</b>
+  </div>
+</mat-card-content>
+
+

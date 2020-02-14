@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@angular/material/theming';
+
+@include mat-core();
+
+$catbug-app-primary: mat-palette($mat-deep-purple);
+$catbug-app-accent:  mat-palette($mat-orange, A200, A100, A400);
+
+$catbug-app-warn:    mat-palette($mat-red);
+
+$catbug-app-theme: mat-dark-theme($catbug-app-primary, $catbug-app-accent, $catbug-app-warn);
+
+@include angular-material-theme($catbug-app-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.avatar{
+  font-size: 2rem;
+}
+
+

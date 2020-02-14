@@ -1,0 +1,40 @@
+<mat-card-header>
+  <div mat-card-avatar class="avatar"><i class="far fa-object-group"></i></div>
+  <mat-card-title>Nearby words</mat-card-title>
+  <mat-card-subtitle> Method: /nearby-words </mat-card-subtitle>
+  <mat-card-subtitle> Input: 1 word e.g. ["word"] </mat-card-subtitle>
+  <mat-card-subtitle> Output: 10 nearby words e.g ["word_0", "word_1", ..., "word_9"]</mat-card-subtitle>
+</mat-card-header>
+<mat-card-content>
+  <mat-form-field color="accent" class="word-chip-list">
+    <mat-chip-list #chipList aria-label="Word selection">
+      <mat-chip *ngFor="let word of words" [selectable]="true"
+                [removable]="true" (removed)="remove(word)">
+        {{word}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input  placeholder="Input word"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              [disabled]="words.length == 1"
+              (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-raised-button color="primary" [disabled]="words.length !== 1"(click)="send()" >Send</button>
+  <button mat-raised-button color="accent" [disabled]="words.length === 0" (click)="reset()">Reset</button>
+</mat-card-actions>
+<mat-card-content *ngIf="bertOutput && bertOutput.length">
+  <div class="mat-h4">Output:</div>
+  <div *ngFor="let dist of bertOutput; let i = index">
+    {{i}} - <b>{{dist}}</b>
+  </div>
+</mat-card-content>
+<mat-card-content *ngIf="bertOutput && bertOutput.length">
+  <div class="mat-h4">Output:</div>
+  <div *ngFor="let dist of bertOutput">
+     <b>{{dist}}</b>
+  </div>
+</mat-card-content>

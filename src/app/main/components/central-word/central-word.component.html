@@ -1,0 +1,28 @@
+<mat-card-header>
+  <div mat-card-avatar class="avatar"><i class="fas fa-sitemap"></i></div>
+  <mat-card-title>Central word</mat-card-title>
+  <mat-card-subtitle> Method: /central-word </mat-card-subtitle>
+  <mat-card-subtitle> Input: more then 1 word e.g. ["word_0", "word_1", ..., "word_n"] </mat-card-subtitle>
+  <mat-card-subtitle> Output: 1 central word e.g. ["word"]</mat-card-subtitle>
+</mat-card-header>
+<mat-card-content>
+  <mat-form-field color="accent" class="word-chip-list">
+    <mat-chip-list #chipList aria-label="Word selection">
+      <mat-chip *ngFor="let word of words" [selectable]="true"
+                [removable]="true" (removed)="remove(word)">
+        {{word}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input  placeholder="Input words"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              [disabled]="false"
+              (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+</mat-card-content>
+<mat-card-actions>
+  <button mat-raised-button color="primary" [disabled]="words.length < 2">Send</button>
+  <button mat-raised-button color="accent" [disabled]="words.length === 0" (click)="reset()">Reset</button>
+</mat-card-actions>
