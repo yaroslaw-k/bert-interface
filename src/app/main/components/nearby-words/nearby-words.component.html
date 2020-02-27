@@ -2,7 +2,7 @@
   <div mat-card-avatar class="avatar"><i class="far fa-object-group"></i></div>
   <mat-card-title>Nearby words</mat-card-title>
   <mat-card-subtitle> Method: /nearby-words </mat-card-subtitle>
-  <mat-card-subtitle> Input: 1 word e.g. ["word"] </mat-card-subtitle>
+  <mat-card-subtitle> Input: 1 word e.g. &#123; 'request_word': 'anyword', 'n_similar': 20 &#125; </mat-card-subtitle>
   <mat-card-subtitle> Output: 10 nearby words e.g ["word_0", "word_1", ..., "word_9"]</mat-card-subtitle>
 </mat-card-header>
 <mat-card-content>
@@ -26,15 +26,10 @@
   <button mat-raised-button color="primary" [disabled]="words.length !== 1"(click)="send()" >Send</button>
   <button mat-raised-button color="accent" [disabled]="words.length === 0" (click)="reset()">Reset</button>
 </mat-card-actions>
+
 <mat-card-content *ngIf="bertOutput && bertOutput.length">
-  <div class="mat-h4">Output:</div>
-  <div *ngFor="let dist of bertOutput; let i = index">
-    {{i}} - <b>{{dist}}</b>
-  </div>
-</mat-card-content>
-<mat-card-content *ngIf="bertOutput && bertOutput.length">
-  <div class="mat-h4">Output:</div>
-  <div *ngFor="let dist of bertOutput">
-     <b>{{dist}}</b>
+  <div class="mat-h4">Output for {{words[0]}}:</div>
+  <div *ngFor="let output of bertOutput; let i = index">
+    {{i}}. {{output[0]}} - {{output[1]}}
   </div>
 </mat-card-content>

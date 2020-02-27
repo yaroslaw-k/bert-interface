@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,19 @@ export class BertApiService {
       target: words.shift(),
       words: [...words]
     };
-    return this.httpClient.post(window.location.origin + '/bert-api/' + 'words-distance', payload);
+    return this.httpClient.post(window.location.origin + '/bert-api/' + 'words-distance', payload).pipe(map(
+      (res: string) => {
+        return JSON.parse(res);
+      }
+    ));
   }
 
   getNearbyWords(word: string[]) {
-    return this.httpClient.post(window.location.origin + '/bert-api/' + 'nearby-words', word);
+    return this.httpClient.post(window.location.origin + '/bert-api/' + 'nearby-words', {request_word: word[0], n_similar: 20}).pipe(map(
+      (res: string) => {
+        return JSON.parse(res);
+      }
+    ));
   }
 
   getCentralWord(words: string[]) {

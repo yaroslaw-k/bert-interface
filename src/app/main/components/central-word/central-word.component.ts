@@ -12,7 +12,7 @@ import {take} from 'rxjs/operators';
 export class CentralWordComponent implements OnInit {
   words: string[] = [];
   bertOutput: string[] = [];
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
 
   constructor(private bertApi: BertApiService) {
   }

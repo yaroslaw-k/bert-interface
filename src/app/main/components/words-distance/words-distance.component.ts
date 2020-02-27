@@ -12,7 +12,7 @@ import {take} from 'rxjs/operators';
 export class WordsDistanceComponent implements OnInit {
   words: string[] = [];
   bertOutput: number[] = [];
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
 
   constructor(private bertApi: BertApiService) {
   }

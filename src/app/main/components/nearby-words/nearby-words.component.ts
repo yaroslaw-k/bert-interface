@@ -12,8 +12,8 @@ import {take} from 'rxjs/operators';
 export class NearbyWordsComponent implements OnInit {
 
   words: string[] = [];
-  bertOutput: string[] = [];
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  bertOutput: any[] = [];
+  readonly separatorKeysCodes: number[] = [ENTER];
 
   constructor(private bertApi: BertApiService) {
   }
@@ -48,7 +48,7 @@ export class NearbyWordsComponent implements OnInit {
 
   send() {
     this.bertApi.getNearbyWords(this.words).pipe(take(1)).subscribe(
-      (res: string[]) => {
+      (res: any[]) => {
         this.bertOutput = res;
       }
     );
