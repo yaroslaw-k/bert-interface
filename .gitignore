@@ -22,6 +22,7 @@ speed-measure-plugin*.json
 *.launch
 .settings/
 *.sublime-workspace
+.vscode
 
 # IDE - VSCode
 .vscode/*
@@ -44,3 +45,14 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Python files
+__pycache__/
+*.py[cod]
+.Python
+.eggs/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+pip-log.txt
