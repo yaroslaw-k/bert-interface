@@ -16,7 +16,7 @@ export class BertApiService {
       target: words.shift(),
       words: [...words]
     };
-    return this.httpClient.post(window.location.origin + '/bert-api/' + 'words-distance', payload).pipe(map(
+    return this.httpClient.post(window.location.origin + '/' + 'words-distance', payload).pipe(map(
       (res: string) => {
         return JSON.parse(res);
       }
@@ -24,7 +24,7 @@ export class BertApiService {
   }
 
   getNearbyWords(word: string[]) {
-    return this.httpClient.post(window.location.origin + '/bert-api/' + 'nearby-words', {request_word: word[0], n_similar: 20}).pipe(map(
+    return this.httpClient.post(window.location.origin + '/' + 'nearby-words', {request_word: word[0], n_similar: 20}).pipe(map(
       (res: string) => {
         return JSON.parse(res);
       }
@@ -32,6 +32,6 @@ export class BertApiService {
   }
 
   getCentralWord(words: string[]) {
-    return this.httpClient.post(window.location.origin + '/bert-api/' + 'central-word', words);
+    return this.httpClient.post(window.location.origin + '/' + 'central-word', words);
   }
 }
