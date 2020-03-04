@@ -22,6 +22,12 @@ python3 flask_service.py [--help] -p [port number, default 5000]
 
     * returns `[['word1', distance1], ..., ['wordN', distanceN]]`
 
+- `/central-word` - find the **central_word** given the query **words**
+    * query example `{'words': ['word1', ..., 'wordN']}`
+        - `words` - iter, array of strings with words
+
+    * returns `'central_word'` which is not repeating any of the input words
+
 
 ## To run locally
 
@@ -50,8 +56,9 @@ curl -i -H "Content-Type: application/json" -X POST -d '{"request_word": "пиж
 
 # /words-distance example
 curl -i -H "Content-Type: application/json" -X POST -d '{"target": "облако", "words": ["брюки", "кирпич", "голова"]}' 0.0.0.0:8020/words-distance
+
+# /central-word example
+curl -i -H "Content-Type: application/json" -X POST -d '{"words": ["ваниль", "крем", "пудинг"]}' 0.0.0.0:8020/central-word
 ```
 
 ## TO-DO
-
-*  `/central-word` method
