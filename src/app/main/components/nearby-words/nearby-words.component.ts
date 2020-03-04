@@ -3,6 +3,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
 import {BertApiService} from '../../services/bert-api.service';
 import {take} from 'rxjs/operators';
+import {LevenshteinService} from '../../services/levenshtein.service';
 
 @Component({
   selector: 'app-nearby-words',
@@ -15,7 +16,7 @@ export class NearbyWordsComponent implements OnInit {
   bertOutput: any[] = [];
   readonly separatorKeysCodes: number[] = [ENTER];
 
-  constructor(private bertApi: BertApiService) {
+  constructor(private bertApi: BertApiService, private lev: LevenshteinService) {
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class NearbyWordsComponent implements OnInit {
   send() {
     this.bertApi.getNearbyWords(this.words).pipe(take(1)).subscribe(
       (res: any[]) => {
-        this.bertOutput = res;
+        this.bertOutput = res.sort( (a,b) => this.lev.getDif(this.words[0], b[0]) - this.lev.getDif(this.words[0], a[0]));
       }
     );
   }
