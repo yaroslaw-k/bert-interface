@@ -9,6 +9,7 @@ from collections.abc import Iterable
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 import gensim
+import numpy as np
 
 
 MODEL_PATH = '../models/fasttext/fasttext.model'
@@ -73,9 +74,49 @@ class WordsDistance(Resource):
         return json.dumps([(key, value.astype(float)) for (key, value) in zip(words, distances)])
 
 
+class CentralWord(Resource):
+    def __init__(self):
+        self._required_features = ['words']
+        self.reqparse = reqparse.RequestParser()
+        type_ = list
+        for feature in self._required_features:
+            self.reqparse.add_argument(feature,
+                                       required=True,
+                                       type=type_,
+                                       location='json',
+                                       help='No {} provided'.format(feature))
+        super(CentralWord, self).__init__()
+
+    def post(self):
+        global model
+        args = self.reqparse.parse_args()
+        words = [args[f] for f in self._required_features]
+        words = words[0]  # TODO: try to parse as a list of strings (not list of lists)
+        query_size = len(words)
+
+        if not isinstance(words, Iterable) and isinstance(words, str):
+            return json.dumps("Please send parameter 'words' as an iterable")
+
+        vectors = list()
+        for word in words:
+            vectors.append(model[word])  # get vector per word in query
+
+        # find central embedding for all the given words
+        central_vector = np.mean([np.array(item) for item in vectors], axis=0)
+        central_word_candidates = model.most_similar(positive=[central_vector], topn=(query_size + 1))
+        central_word = self._filter_one_candidate(central_word_candidates, words)
+        return json.dumps(central_word)
+
+    @staticmethod
+    def _filter_one_candidate(list_of_cand, query):
+        for candidate, score in list_of_cand:
+            if candidate not in query:
+                return candidate
+
+
 api.add_resource(NearbyWords, '/nearby-words')
 api.add_resource(WordsDistance, '/words-distance')
-# api.add_resource(CentralWord, '/central-word')
+api.add_resource(CentralWord, '/central-word')
 
 
 if __name__ == '__main__':
