@@ -32,6 +32,10 @@ export class BertApiService {
   }
 
   getCentralWord(words: string[]) {
-    return this.httpClient.post(window.location.origin + '/' + 'central-word', words);
+    return this.httpClient.post(window.location.origin + '/' + 'central-word', {words: words}).pipe(map(
+      (res: string) => {
+        return JSON.parse(res);
+      }
+    ));
   }
 }

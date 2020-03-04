@@ -47,7 +47,8 @@ export class CentralWordComponent implements OnInit {
 
   send(){
     this.bertApi.getCentralWord(this.words).pipe(take(1)).subscribe(
-      (res: string[]) => {
+      (res: any) => {
+        console.log(res);
         this.bertOutput = res;
       }
     )

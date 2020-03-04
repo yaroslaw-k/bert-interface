@@ -23,12 +23,10 @@
   </mat-form-field>
 </mat-card-content>
 <mat-card-actions>
-  <button mat-raised-button color="primary" [disabled]="words.length < 2">Send</button>
+  <button mat-raised-button color="primary" [disabled]="words.length < 2" (click)="send()">Send</button>
   <button mat-raised-button color="accent" [disabled]="words.length === 0" (click)="reset()">Reset</button>
 </mat-card-actions>
 <mat-card-content *ngIf="bertOutput && bertOutput.length">
   <div class="mat-h4">Output:</div>
-  <div *ngFor="let dist of bertOutput">
-    <b>{{dist}}</b>
-  </div>
+  {{bertOutput}}
 </mat-card-content>

@@ -12,12 +12,12 @@ import gensim
 import numpy as np
 
 
-MODEL_PATH = '../models/fasttext/fasttext.model'
+MODEL_PATH = '../models/fasttext/gensim_no_trainables.model'
 model = gensim.models.keyedvectors.FastTextKeyedVectors.load(MODEL_PATH, mmap='r')
 model.index2word = [item for item in model.vocab]
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='../static',)
 api = Api(app)
 
 
@@ -117,6 +117,10 @@ class CentralWord(Resource):
 api.add_resource(NearbyWords, '/nearby-words')
 api.add_resource(WordsDistance, '/words-distance')
 api.add_resource(CentralWord, '/central-word')
+
+@app.route('/')
+def root():
+    return app.send_static_file('index.html')
 
 
 if __name__ == '__main__':

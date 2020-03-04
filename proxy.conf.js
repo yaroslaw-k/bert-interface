@@ -4,7 +4,7 @@ const
   bertProtocol = 'http'; // <--- change bert protocol here
 
 const PROXY_CONFIG = {
-  "/bert-api/" : {
+  "/" : {
     "target": `${bertProtocol}://${bertHost}:${bertPort}`,
     "secure": bertHost === 'https',
     "pathRewrite": {
