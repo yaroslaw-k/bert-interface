@@ -40,7 +40,7 @@ class NearbyWords(Resource):
             return json.dumps('Please provide correct request_word parameter')
         try:
             similarities = model.similar_by_word(query, topn=int(topn))
-            return json.dumps(similarities)
+            return similarities
         except ValueError:
             return json.dumps("Can't convert n_similar to int")
 
@@ -71,7 +71,7 @@ class WordsDistance(Resource):
             return json.dumps("Please send parameter 'target' as a string")
 
         distances = model.distances(target, words)
-        return json.dumps([(key, value.astype(float)) for (key, value) in zip(words, distances)])
+        return [(key, value.astype(float)) for (key, value) in zip(words, distances)]
 
 
 class CentralWord(Resource):
@@ -105,7 +105,7 @@ class CentralWord(Resource):
         central_vector = np.mean([np.array(item) for item in vectors], axis=0)
         central_word_candidates = model.most_similar(positive=[central_vector], topn=(query_size + 1))
         central_word = self._filter_one_candidate(central_word_candidates, words)
-        return json.dumps(central_word)
+        return central_word
 
     @staticmethod
     def _filter_one_candidate(list_of_cand, query):

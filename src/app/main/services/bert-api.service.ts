@@ -18,26 +18,14 @@ export class BertApiService {
       words: [...words]
     };
     this.lev.getDif(payload.target, words[0]);
-    return this.httpClient.post(window.location.origin + '/' + 'words-distance', payload).pipe(map(
-      (res: string) => {
-        return JSON.parse(res);
-      }
-    ));
+    return this.httpClient.post(window.location.origin + '/' + 'words-distance', payload);
   }
 
   getNearbyWords(word: string[]) {
-    return this.httpClient.post(window.location.origin + '/' + 'nearby-words', {request_word: word[0], n_similar: 20}).pipe(map(
-      (res: string) => {
-        return JSON.parse(res);
-      }
-    ));
+    return this.httpClient.post(window.location.origin + '/' + 'nearby-words', {request_word: word[0], n_similar: 20});
   }
 
   getCentralWord(words: string[]) {
-    return this.httpClient.post(window.location.origin + '/' + 'central-word', {words: words}).pipe(map(
-      (res: string) => {
-        return JSON.parse(res);
-      }
-    ));
+    return this.httpClient.post(window.location.origin + '/' + 'central-word', {words: words});
   }
 }
