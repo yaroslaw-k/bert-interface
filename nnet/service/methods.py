@@ -54,7 +54,6 @@ class WordsDistance(Resource):
         if not isinstance(target, str):
             return json.dumps("Please send parameter 'target' as a string")
 
-        # distances = self.model.distances(target, words)
         distances = []
         for word in words:
             if word in self.model.vocab:
