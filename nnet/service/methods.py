@@ -54,7 +54,20 @@ class WordsDistance(Resource):
         if not isinstance(target, str):
             return json.dumps("Please send parameter 'target' as a string")
 
-        distances = self.model.distances(target, words)
+        # distances = self.model.distances(target, words)
+        distances = []
+        for word in words:
+            if word in self.model.vocab:
+                distances.append(self.model.distance(target, word))
+            else:
+                # OOV word - compare manually
+                word_vector = self.model.word_vec(word)
+                target_vector = self.model.word_vec(target)
+                # compute cosine similarity
+                similarity_ = np.dot(target_vector, word_vector) / (np.linalg.norm(target_vector, 2) * np.linalg.norm(word_vector, 2))
+                # appending abs(1 - similarity_) to distances
+                distances.append(abs(1 - similarity_))
+
         return [(key, value.astype(float)) for (key, value) in zip(words, distances)]
 
 
