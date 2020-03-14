@@ -21,6 +21,7 @@ python3 flask_service.py [--help] -p [port number, default 5000]
         - `words` - iter, array of strings with words
 
     * returns `[['word1', distance1], ..., ['wordN', distanceN]]`
+    * distance close to 0 means words are similar, and distance close to 1 means opposite
 
 - `/central-word` - find the **central_word** given the query **words**
     * query example `{'words': ['word1', ..., 'wordN']}`
