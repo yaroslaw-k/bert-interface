@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MainComponent } from './components/main/main.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MainComponent} from './components/main/main.component';
 import {
   MatButtonModule,
   MatCardModule, MatChipsModule,
@@ -11,15 +11,16 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
-import { WordsDistanceComponent } from './components/words-distance/words-distance.component';
-import { NearbyWordsComponent } from './components/nearby-words/nearby-words.component';
-import { CentralWordComponent } from './components/central-word/central-word.component';
+import {WordsDistanceComponent} from './components/words-distance/words-distance.component';
+import {NearbyWordsComponent} from './components/nearby-words/nearby-words.component';
+import {CentralWordComponent} from './components/central-word/central-word.component';
 import {HttpClientModule} from '@angular/common/http';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import {GameConceptComponent} from './components/game-concept/game-concept.component';
 
 
 @NgModule({
-  declarations: [MainComponent, WordsDistanceComponent, NearbyWordsComponent, CentralWordComponent],
+  declarations: [MainComponent, WordsDistanceComponent, NearbyWordsComponent, CentralWordComponent, GameConceptComponent],
   exports: [
     MainComponent
   ],
@@ -34,7 +35,9 @@ import {HttpClientModule} from '@angular/common/http';
     MatListModule,
     MatFormFieldModule,
     MatChipsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule
   ]
 })
-export class MainModule { }
+export class MainModule {
+}

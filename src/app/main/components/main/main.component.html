@@ -6,15 +6,25 @@
 </mat-toolbar>
 <mat-drawer-container class="main-container">
   <mat-drawer-content>
-      <mat-card class="app-card">
-        <app-words-distance></app-words-distance>
-      </mat-card>
-      <mat-card class="app-card">
-        <app-nearby-words></app-nearby-words>
-      </mat-card>
-      <mat-card class="app-card">
-        <app-central-word></app-central-word>
-      </mat-card>
+    <mat-tab-group>
+      <mat-tab label="API">
+        <mat-card class="app-card">
+          <app-words-distance></app-words-distance>
+        </mat-card>
+        <mat-card class="app-card">
+          <app-nearby-words></app-nearby-words>
+        </mat-card>
+        <mat-card class="app-card">
+          <app-central-word></app-central-word>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Game concept">
+        <mat-card class="app-card">
+          <app-game-concept></app-game-concept>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+
   </mat-drawer-content>
 </mat-drawer-container>
 
