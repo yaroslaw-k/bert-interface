@@ -14,6 +14,7 @@ from methods import NearbyWords, WordsDistance, CentralWord
 MODEL_PATH = '../models/fasttext/fasttext.model'
 model = gensim.models.keyedvectors.FastTextKeyedVectors.load(MODEL_PATH, mmap='r')
 model.index2word = [item for item in model.vocab]
+model.init_sims()
 
 
 app = Flask(__name__, static_url_path='', static_folder='../static',)
